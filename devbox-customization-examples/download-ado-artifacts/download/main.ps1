@@ -17,6 +17,7 @@ param (
 
 if($PAT) {
     # if PAT is provided, we just use rest api to download the artifact as sysadmin   
+    az extension add --name azure-devops
     Write-Output $PAT | az devops login --organization https://dev.azure.com/${Organization}/
     az artifacts universal download --organization https://dev.azure.com/${Organization}/ --project $Project --scope project --feed $Feed --name $Package --version $Version --path $($Destination)
 }else
