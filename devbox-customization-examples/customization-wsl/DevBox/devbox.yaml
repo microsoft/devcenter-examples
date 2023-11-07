@@ -1,0 +1,26 @@
+name: devbox-customization
+image: MicrosoftVisualStudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
+hostInformation: general_i_8c32gb256ssd_v2
+supportsHibernation: true
+setupTasks:
+  - task: choco
+    inputs:
+      package: python3
+      version: 3.11.0
+  - task: powershell
+    inputs:
+      command: |
+        # Install robot framework
+        python.exe -m pip install --upgrade pip;
+        pip install robotframework
+  - task: powershell
+    inputs:
+      command: |
+        # Install WSL2 distros
+        wsl --install -d Ubuntu-22.04;
+
+        # Install VSCode extensions
+        code --install-extension ms-python.python;
+        code --install-extension ms-vscode-remote.remote-wsl;
+        code --install-extension d-biehl.robotcode
+      runAsUser: true
