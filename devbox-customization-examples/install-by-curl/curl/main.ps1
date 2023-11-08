@@ -10,7 +10,9 @@ param (
     [Parameter()]
     [string]$PostInstallFile,
     [Parameter()]
-    [string]$PostInstallArguments
+    [string]$PostInstallArguments,
+    [Parameter()]
+    [string]$PostInlineCommand
 )
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -46,11 +48,17 @@ if($SourceURL -ne "" -and $Package -ne "" -and $Version -ne "" -and $Destination
         Unzip $zipFile $packageFolder
 
         Set-Location $DestinationDirectory
-        if($PostInstallFile -ne "") {
+        if($PostInstallFile) {
             $installerPath = Join-Path $packageFolder $PostInstallFile
             Write-Host "Executing installerPath: $installerPath"
             Start-Process -FilePath $installerPath -ArgumentList $PostInstallArguments -NoNewWindow -Wait -PassThru
             Write-Host "Completed installing $Package"
+        }
+
+        if($PostInlineCommand) {
+            Write-Host "Executing PostInlineCommand: $PostInlineCommand"
+            Invoke-Expression $PostInlineCommand
+            Write-Host "Completed executing PostInlineCommand"
         }
     }else{
         Write-Host "Cannot download the zip file: $packageFileURL to $zipFile"

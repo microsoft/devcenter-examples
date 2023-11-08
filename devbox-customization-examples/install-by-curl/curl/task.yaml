@@ -1,5 +1,5 @@
 name: curl
-command: './main.ps1 -SourceURL {{sourceURL}} -Package {{package}} -Version {{version}} -DestinationDirectory {{destinationDirectory}} -postInstallFile {{postInstallFile}} -postInstallArguments {{postInstallArguments}}'
+command: './main.ps1 -SourceURL {{sourceURL}} -Package {{package}} -Version {{version}} -DestinationDirectory {{destinationDirectory}} -PostInstallFile {{postInstallFile}} -PostInstallArguments {{postInstallArguments}} -PostInlineCommand {{postInlineCommand}}'
 inputs:
   sourceURL:
     defaultValue: 'http://172.190.121.178:8081/repository/zip-repo/'
@@ -37,6 +37,12 @@ inputs:
     required: false
     description: | 
       install arguemnts
+  postInlineCommand:
+    defaultValue: ''
+    type: 'string'
+    required: false
+    description: | 
+      After install the package, run the command if necessary
 documentation:
   notes: This task is used to install a zip package by curl
   examples:
