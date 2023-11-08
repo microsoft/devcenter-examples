@@ -19,7 +19,12 @@ if($PAT) {
     # if PAT is provided, we just use rest api to download the artifact as sysadmin   
     az extension add --name azure-devops
     Write-Output $PAT | az devops login --organization https://dev.azure.com/${Organization}/
-    az artifacts universal download --organization https://dev.azure.com/${Organization}/ --project $Project --scope project --feed $Feed --name $Package --version $Version --path $($Destination)
+    if($Project){
+        az artifacts universal download --organization https://dev.azure.com/${Organization}/ --project $Project --scope project --feed $Feed --name $Package --version $Version --path $($Destination)
+    }else{
+        az artifacts universal download --organization https://dev.azure.com/${Organization}/ --feed $Feed --name $Package --version $Version --path $($Destination)
+    }
+    
 }else
 {
     # if PAT is not provided, we use ado cli to download the artifact as the current user
@@ -27,9 +32,19 @@ if($PAT) {
 
 az login
 az extension add --name azure-devops
-az artifacts universal download --organization https://dev.azure.com/${Organization}/ --project $Project --scope project --feed $Feed --name $Package --version $Version --path $($Destination)
-Read-Host "any key to exit"
 "@
+    if($Project){
+        $Command += @"
+
+az artifacts universal download --organization https://dev.azure.com/${Organization}/ --project $Project --scope project --feed $Feed --name $Package --version $Version --path $($Destination)
+"@
+        
+    }else{
+        $Command += @"
+
+az artifacts universal download --organization https://dev.azure.com/${Organization}/ --feed $Feed --name $Package --version $Version --path $($Destination)
+"@
+    }
     function SetupScheduledTasks {
         param(
             [string]$RunAsUserScriptPath,

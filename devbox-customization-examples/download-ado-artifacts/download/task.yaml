@@ -12,7 +12,7 @@ inputs:
   project:
     defaultValue: ''
     type: string
-    required: true
+    required: false
     description: The project GUID for the Azure DevOps.
 
   feed:
