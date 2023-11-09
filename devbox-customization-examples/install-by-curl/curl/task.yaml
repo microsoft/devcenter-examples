@@ -28,7 +28,7 @@ inputs:
   fileExtension:
     defaultValue: 'zip'
     type: 'string'
-    required: true
+    required: false
     description: | 
       the file extension for downloading. If it's zip file, then after downloading, it will be unzipped. otherwise, it will be copied to the destination directory.
 documentation:
