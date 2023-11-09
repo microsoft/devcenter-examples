@@ -54,3 +54,4 @@ documentation:
         destinationDirectory: 'C:\Temp'
         postInstallFile: 'setup.exe'
         postInstallArguments: '/S /V /qn'
+        postInlineCommand: "[System.Environment]::SetEnvironmentVariable('GRADLE_HOME','c:\\opt\\gradle\\current','Machine')" # just for test
