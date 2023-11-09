@@ -6,7 +6,9 @@ param (
     [Parameter()]
     [string]$Version,
     [Parameter()]
-    [string]$DestinationDirectory
+    [string]$DestinationDirectory,
+    [Parameter()]
+    [string]$FileExtension
 )
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -18,14 +20,14 @@ function Unzip
 
 if($SourceURL -ne "" -and $Package -ne "" -and $Version -ne "" -and $DestinationDirectory -ne "") {
     $SourceURL = $SourceURL.TrimEnd('/')
-    $packageFileURL = "$SourceURL/$Package-$Version.zip"
+    $packageFileURL = "$SourceURL/$Package-$Version.$FileExtension"
     Write-Host "packageFileURL:$packageFileURL"
 
     if(!(Test-Path $DestinationDirectory)) {
         New-Item $DestinationDirectory -ItemType Directory
     }
 
-    $zipFile = Join-Path $DestinationDirectory "$Package-$Version.zip"
+    $zipFile = Join-Path $DestinationDirectory "$Package-$Version.$FileExtension"
 
     if(!(${env:REPO-GET-SECRET})){
         Invoke-RestMethod $packageFileURL -OutFile $zipFile
@@ -38,8 +40,11 @@ if($SourceURL -ne "" -and $Package -ne "" -and $Version -ne "" -and $Destination
         if(Test-Path $packageFolder) {
             Remove-Item $packageFolder -Force -Recurse
         }
-
-        Unzip $zipFile $packageFolder
+        
+        if($FileExtension -eq "zip"){
+            Unzip $zipFile $packageFolder
+        }
+        
     }else{
         Write-Host "Cannot download the zip file: $packageFileURL to $zipFile"
     }
