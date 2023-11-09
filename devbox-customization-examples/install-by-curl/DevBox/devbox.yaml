@@ -8,9 +8,7 @@ setupTasks:
       repoSecretBase64: 'bHlsZTpXZWxjb21lMQ=='
   - task: curl
     inputs:
-      sourceURL: 'http://172.190.121.178:8081/repository/zip-repo/'
+      sourceURL: 'http://172.190.121.178:8081/repository/zip-repo/notepadplusplus'
       package: 'notepadplusplus'
       version: '8.5.6'
       destinationDirectory: 'C:\Temp'
-      postInstallFile: 'setup.exe'
-      postInstallArguments: '/S /V /qn'

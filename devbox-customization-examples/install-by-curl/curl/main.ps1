@@ -6,13 +6,7 @@ param (
     [Parameter()]
     [string]$Version,
     [Parameter()]
-    [string]$DestinationDirectory,
-    [Parameter()]
-    [string]$PostInstallFile,
-    [Parameter()]
-    [string]$PostInstallArguments,
-    [Parameter()]
-    [string]$PostInlineCommand
+    [string]$DestinationDirectory
 )
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -24,7 +18,7 @@ function Unzip
 
 if($SourceURL -ne "" -and $Package -ne "" -and $Version -ne "" -and $DestinationDirectory -ne "") {
     $SourceURL = $SourceURL.TrimEnd('/')
-    $packageFileURL = "$SourceURL/$Package/$Package-$Version.zip"
+    $packageFileURL = "$SourceURL/$Package-$Version.zip"
     Write-Host "packageFileURL:$packageFileURL"
 
     if(!(Test-Path $DestinationDirectory)) {
@@ -46,25 +40,9 @@ if($SourceURL -ne "" -and $Package -ne "" -and $Version -ne "" -and $Destination
         }
 
         Unzip $zipFile $packageFolder
-
-        Set-Location $DestinationDirectory
-        if($PostInstallFile) {
-            $installerPath = Join-Path $packageFolder $PostInstallFile
-            Write-Host "Executing installerPath: $installerPath"
-            Start-Process -FilePath $installerPath -ArgumentList $PostInstallArguments -NoNewWindow -Wait -PassThru
-            Write-Host "Completed installing $Package"
-        }
-
-        if($PostInlineCommand) {
-            Write-Host "Executing PostInlineCommand: $PostInlineCommand"
-            Invoke-Expression $PostInlineCommand
-            Write-Host "Completed executing PostInlineCommand"
-        }
     }else{
         Write-Host "Cannot download the zip file: $packageFileURL to $zipFile"
     }
-
-    
 } else {
     Write-Host "SourceURL, Package, Version and DestinationDirectory are not expected. SourceURL: $SourceURL, Package: $Package, Version: $Version, DestinationDirectory: $DestinationDirectory"
 }

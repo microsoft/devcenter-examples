@@ -1,18 +1,18 @@
 name: curl
-command: './main.ps1 -SourceURL {{sourceURL}} -Package {{package}} -Version {{version}} -DestinationDirectory {{destinationDirectory}} -PostInstallFile {{postInstallFile}} -PostInstallArguments {{postInstallArguments}} -PostInlineCommand {{postInlineCommand}}'
+command: './main.ps1 -SourceURL {{sourceURL}} -Package {{package}} -Version {{version}} -DestinationDirectory {{destinationDirectory}}'
 inputs:
   sourceURL:
-    defaultValue: 'http://172.190.121.178:8081/repository/zip-repo/'
+    defaultValue: ''
     type: 'string'
-    required: false
+    required: true
     description: | 
-      Source URL that package is located. The source URL in Nexus Raw repo is http://<service ip address>:<port number>/repository/<repository name>. For example, suppose repository name is zip-repo, the source URL is like this http://localhost:8081/repository/zip-repo/
+      Source URL that package is located. Suppose the entire url is http://172.190.121.178:8081/repository/zip-repo/notepadplusplus/notepadplusplus-8.5.6.zip, then the sourceURL is http://172.190.121.178:8081/repository/zip-repo/notepadplusplus
   package:
     defaultValue: ''
     type: 'string'
     required: true
     description: | 
-      package name
+      package name, e.g. notepadplusplus
   version:
     defaultValue: ''
     type: 'string'
@@ -25,33 +25,12 @@ inputs:
     required: true
     description: | 
       The directory that the package will be donwloaded
-  postInstallFile:
-    defaultValue: ''
-    type: 'string'
-    required: false
-    description: | 
-      install file name
-  postInstallArguments:
-    defaultValue: '/S /V/qn'
-    type: 'string'
-    required: false
-    description: | 
-      install arguemnts
-  postInlineCommand:
-    defaultValue: ''
-    type: 'string'
-    required: false
-    description: | 
-      After install the package, run the command if necessary
 documentation:
-  notes: This task is used to install a zip package by curl
+  notes: This task is used to download the zip file and unzip the package
   examples:
     - task: curl
       inputs:
-        sourceURL: 'http://172.190.121.178:8081/repository/zip-repo/'
+        sourceURL: 'http://172.190.121.178:8081/repository/zip-repo/notepadplusplus'
         package: 'notepadplusplus'
         version: '8.5.6'
         destinationDirectory: 'C:\Temp'
-        postInstallFile: 'setup.exe'
-        postInstallArguments: '/S /V /qn'
-        postInlineCommand: "[System.Environment]::SetEnvironmentVariable('GRADLE_HOME','c:\\opt\\gradle\\current','Machine')" # just for test
