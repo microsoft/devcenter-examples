@@ -52,7 +52,7 @@ documentation:
     - task: git-clone
       description: Download the artifact
       inputs:
-        organization: https://dev.azure.com/lylexu/
+        organization: lylexu
         project: TestFidalgo
         feed: feed1
         package: my-first-package
