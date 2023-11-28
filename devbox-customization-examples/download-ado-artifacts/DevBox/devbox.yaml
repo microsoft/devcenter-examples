@@ -5,7 +5,7 @@ supportsHibernation: true
 setupTasks:
   - task: download-ado-universal-package
     inputs:
-      organization: https://dev.azure.com/lylexu/
+      organization: lylexu
       project: TestFidalgo
       feed: feed1
       package: my-first-package
