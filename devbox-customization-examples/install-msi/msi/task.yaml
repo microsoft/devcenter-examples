@@ -1,0 +1,15 @@
+name: install-msi
+command: './main.ps1 -FilePath {{filePath}}'
+inputs:
+  filePath:
+    defaultValue: ''
+    type: 'string'
+    required: true
+    description: | 
+      MSI file path absolute path
+documentation:
+  notes: This task is used to download the zip file and unzip the package
+  examples:
+    - task: curl
+      inputs:
+        filePath: 'C:\Temp\Everything-1.4.1.1024.x64.msi'

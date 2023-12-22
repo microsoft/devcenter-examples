@@ -1,0 +1,13 @@
+name: devbox-customization
+image: MicrosoftVisualStudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
+hostInformation: general_i_8c32gb256ssd_v2
+supportsHibernation: true
+setupTasks:
+  - task: download-ado-universal-package
+    inputs:
+      organization: lylexu
+      project: TestFidalgo
+      feed: feed1
+      package: my-first-package
+      version: 0.0.1
+      destination: C:\artifacts
