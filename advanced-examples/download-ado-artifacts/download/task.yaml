@@ -2,7 +2,7 @@ name: download-ado-universal-package
 description: Download the Azure DevOps artifacts (Universal Packages).
 author: Microsoft Corporation
 command: ./main.ps1 -Organization {{ organization }} -Project {{ project }} -Feed {{ feed }} -Package {{ package }} -Version {{ version }} -Destination {{ destination }} -PAT {{ pat }}
-inputs:
+parameters:
   organization:
     defaultValue: ''
     type: string
@@ -49,9 +49,9 @@ documentation:
   notes: |
     This task allows you to download the artifact from Azure DevOps. 
   examples:
-    - task: git-clone
+    - name: git-clone
       description: Download the artifact
-      inputs:
+      parameters:
         organization: lylexu
         project: TestFidalgo
         feed: feed1

@@ -4,7 +4,7 @@ name: powershell
 description: Execute a powershell command.
 author: Microsoft Corporation
 command: ".\\Run-Command.ps1 -Command {{command}} -WorkingDirectory {{workingDirectory}} -RunAsUser {{runAsUser}}"
-inputs:
+parameters:
   command:
     type: string
     defaultValue: ""
@@ -23,12 +23,12 @@ inputs:
 documentation:
   notes: This task is used to execute a powershell command.
   examples:
-    - task: powershell
+    - name: powershell
       description: print hello world
-      inputs:
+      parameters:
         command: "Write-Host 'hello, world!'"
-    - task: powershell
+    - name: powershell
       description: run script
-      inputs:
+      parameters:
         command: "./script.ps1"
         workingDirectory: C:\\provisioning\\temp

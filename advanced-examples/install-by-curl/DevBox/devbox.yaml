@@ -1,13 +1,10 @@
 name: devbox-customization
-image: MicrosoftVisualStudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
-hostInformation: general_i_8c32gb256ssd_v2
-supportsHibernation: true
-setupTasks:
-  - task: set-curl-secret
-    inputs:
+tasks:
+  - name: set-curl-secret
+    parameters:
       repoSecretBase64: 'bHlsZTpXZWxjb21lMQ=='
-  - task: curl
-    inputs:
+  - name: curl
+    parameters:
       sourceURL: 'http://172.190.121.178:8081/repository/zip-repo/notepadplusplus'
       package: 'notepadplusplus'
       version: '8.5.6'

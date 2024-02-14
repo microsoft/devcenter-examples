@@ -4,7 +4,7 @@ name: choco
 description: Installs a Chocolatey package.
 author: Microsoft Corporation
 command: "./Choco.ps1 -Package {{package}} -Version {{version}} -IgnoreChecksums {{ignoreChecksums}}"
-inputs:
+parameters:
   package:
     defaultValue: ""
     type: string
@@ -27,12 +27,12 @@ inputs:
 documentation:
   notes: This task is used to install a Chocolatey package.
   examples:
-    - task: choco
+    - name: choco
       description: install OracleJDK 17.0.2
-      inputs:
+      parameters:
         package: oraclejdk
         version: 17.0.2
-    - task: choco
+    - name: choco
       description: install notepad++
-      inputs:
+      parameters:
         package: notepadplusplus

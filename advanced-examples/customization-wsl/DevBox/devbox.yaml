@@ -1,20 +1,17 @@
 name: devbox-customization
-image: MicrosoftVisualStudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
-hostInformation: general_i_8c32gb256ssd_v2
-supportsHibernation: true
-setupTasks:
-  - task: choco
-    inputs:
+tasks:
+  - name choco
+    parameters:
       package: python3
       version: 3.11.0
-  - task: powershell
-    inputs:
+  - name powershell
+    parameters:
       command: |
         # Install robot framework
         python.exe -m pip install --upgrade pip;
         pip install robotframework
-  - task: powershell
-    inputs:
+  - name powershell
+    parameters:
       command: |
         # Install WSL2 distros
         wsl --install -d Ubuntu-22.04;

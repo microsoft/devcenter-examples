@@ -1,6 +1,6 @@
 name: curl
 command: './main.ps1 -SourceURL {{sourceURL}} -Package {{package}} -Version {{version}} -DestinationDirectory {{destinationDirectory}} -FileExtension {{fileExtension}}'
-inputs:
+parameters:
   sourceURL:
     defaultValue: ''
     type: 'string'
@@ -34,14 +34,14 @@ inputs:
 documentation:
   notes: This task is used to download the zip file and unzip the package
   examples:
-    - task: curl
-      inputs:
+    - name: curl
+      parameters:
         sourceURL: 'http://172.190.121.178:8081/repository/zip-repo/notepadplusplus'
         package: 'notepadplusplus'
         version: '8.5.6'
         destinationDirectory: 'C:\Temp'
-    - task: curl
-      inputs:
+    - name: curl
+      parameters:
         sourceURL: 'http://172.190.121.178:8081/repository/zip-repo/everything'
         package: 'Everything'
         version: '1.4.1.1024'
