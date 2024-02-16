@@ -1,3 +1,4 @@
+$schema: 1.0
 name: install-msi
 command: './main.ps1 -FilePath {{filePath}}'
 parameters:

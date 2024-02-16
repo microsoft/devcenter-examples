@@ -1,12 +1,13 @@
-setupTasks:
-  - task: choco
-    inputs:
+$schema: 1.0
+names:
+  - name: choco
+    parameters:
       package: vscode
-  - task: choco
-    inputs:
+  - name: choco
+    parameters:
       package: nodejs
-  - task: git-clone
+  - name: git-clone
     description: Clone this repository into C:\Workspaces
-    inputs:
+    parameters:
       repositoryUrl: https://github.com/OrchardCMS/OrchardCore.git
       directory: C:\Workspaces

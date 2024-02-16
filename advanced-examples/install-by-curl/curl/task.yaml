@@ -1,3 +1,4 @@
+$schema: 1.0
 name: curl
 command: './main.ps1 -SourceURL {{sourceURL}} -Package {{package}} -Version {{version}} -DestinationDirectory {{destinationDirectory}} -FileExtension {{fileExtension}}'
 parameters:
