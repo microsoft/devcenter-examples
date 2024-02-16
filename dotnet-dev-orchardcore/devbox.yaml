@@ -1,5 +1,5 @@
 $schema: 1.0
-names:
+tasks:
   - name: choco
     parameters:
       package: vscode
