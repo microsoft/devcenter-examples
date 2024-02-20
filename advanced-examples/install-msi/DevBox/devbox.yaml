@@ -1,8 +1,6 @@
+$schema: 1.0
 name: devbox-customization
-image: MicrosoftVisualStudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
-hostInformation: general_i_8c32gb256ssd_v2
-supportsHibernation: true
-setupTasks:
-  - task: install-msi
-    inputs:
+tasks:
+  - name: install-msi
+    parameters:
       sourceURL: 'C:\Temp\Everything-1.4.1.1024.x64.msi'  # ensure that you have downloaded the msi file to this location

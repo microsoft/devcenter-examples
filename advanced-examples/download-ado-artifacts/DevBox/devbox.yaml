@@ -1,10 +1,8 @@
+$schema: 1.0
 name: devbox-customization
-image: MicrosoftVisualStudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
-hostInformation: general_i_8c32gb256ssd_v2
-supportsHibernation: true
-setupTasks:
-  - task: download-ado-universal-package
-    inputs:
+tasks:
+  - name: download-ado-universal-package
+    parameters:
       organization: lylexu
       project: TestFidalgo
       feed: feed1
