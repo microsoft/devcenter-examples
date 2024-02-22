@@ -1,5 +1,5 @@
 # This is a Chocolatey package installation task for Dev Box.
-$schema: 1.0
+$schema: "1.0"
 name: choco
 description: Installs a Chocolatey package.
 author: Microsoft Corporation

@@ -1,4 +1,4 @@
-$schema: 1.0
+$schema: "1.0"
 name: download-ado-universal-package
 description: Download the Azure DevOps artifacts (Universal Packages).
 author: Microsoft Corporation
