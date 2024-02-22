@@ -1,17 +1,17 @@
-$schema: 1.0
+$schema: "1.0"
 name: devbox-customization
 tasks:
-  - name choco
+  - name: choco
     parameters:
       package: python3
       version: 3.11.0
-  - name powershell
+  - name: powershell
     parameters:
       command: |
         # Install robot framework
         python.exe -m pip install --upgrade pip;
         pip install robotframework
-  - name powershell
+  - name: powershell
     parameters:
       command: |
         # Install WSL2 distros

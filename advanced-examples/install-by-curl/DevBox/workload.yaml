@@ -1,9 +1,11 @@
-$schema: 1.0
+$schema: "1.0"
 name: devbox-customization
 tasks:
   - name: set-curl-secret
     parameters:
-      repoSecretBase64: 'bHlsZTpXZWxjb21lMQ=='
+      # here we are referencing a secret that is stored in Key Vault, with a
+      # value similar to 'bHlsZTpXZWxjb21lMQ=='
+      repoSecretBase64: "{{ https://my-corporate-kv.vault.azure.net/secrets/repoSecretBase64/892c515682164a44be3864af408a0d20 }}"
   - name: curl
     parameters:
       sourceURL: 'http://172.190.121.178:8081/repository/zip-repo/notepadplusplus'

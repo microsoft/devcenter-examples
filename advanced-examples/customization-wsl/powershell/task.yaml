@@ -1,5 +1,5 @@
 # This is a simple powershell command execution task for Dev Box.
-$schema: 1.0
+$schema: "1.0"
 name: powershell
 description: Execute a powershell command.
 author: Microsoft Corporation
