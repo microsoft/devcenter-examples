@@ -3,7 +3,7 @@ name: install-msi
 command: './main.ps1 -FilePath {{filePath}}'
 parameters:
   filePath:
-    defaultValue: ''
+    default: ''
     type: 'string'
     required: true
     description: | 

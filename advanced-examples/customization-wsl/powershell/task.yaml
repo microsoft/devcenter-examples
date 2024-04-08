@@ -7,17 +7,17 @@ command: ".\\Run-Command.ps1 -Command {{command}} -WorkingDirectory {{workingDir
 parameters:
   command:
     type: string
-    defaultValue: ""
+    default: ""
     required: true
     description: The command to execute.
   workingDirectory:
     type: string
-    defaultValue: ""
+    default: ""
     required: false
     description: The working directory to execute the command in.
   runAsUser:
     type: boolean
-    defaultValue: false
+    default: false
     required: false
     description: execute the command when the user login the devbox at the first time.
 documentation:

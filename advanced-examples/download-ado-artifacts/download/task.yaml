@@ -5,43 +5,43 @@ author: Microsoft Corporation
 command: ./main.ps1 -Organization {{ organization }} -Project {{ project }} -Feed {{ feed }} -Package {{ package }} -Version {{ version }} -Destination {{ destination }} -PAT {{ pat }}
 parameters:
   organization:
-    defaultValue: ''
+    default: ''
     type: string
     required: true
     description: The URL of the organization for the Azure DevOps.
 
   project:
-    defaultValue: ''
+    default: ''
     type: string
     required: false
     description: The project GUID for the Azure DevOps.
 
   feed:
-    defaultValue: ''
+    default: ''
     type: string
     required: true
     description: The feed name for the Azure DevOps.
 
   package:
-    defaultValue: ''
+    default: ''
     type: string
     required: true
     description: The package name.  
   
   version:
-    defaultValue: '*'
+    default: '*'
     type: string
     required: false
     description: The package version. 
 
   destination:
-    defaultValue: 'c:\artifacts'
+    default: 'c:\artifacts'
     type: string
     required: false
     description: The destination directory that the artifacts will be downloaded.
 
   pat:
-    defaultValue: ''
+    default: ''
     type: string
     required: false
     description: The PAT token to download the artifact.
