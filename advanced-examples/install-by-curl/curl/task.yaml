@@ -3,31 +3,31 @@ name: curl
 command: './main.ps1 -SourceURL {{sourceURL}} -Package {{package}} -Version {{version}} -DestinationDirectory {{destinationDirectory}} -FileExtension {{fileExtension}}'
 parameters:
   sourceURL:
-    defaultValue: ''
+    default: ''
     type: 'string'
     required: true
     description: | 
       Source URL that package is located. Suppose the entire url is http://172.190.121.178:8081/repository/zip-repo/notepadplusplus/notepadplusplus-8.5.6.zip, then the sourceURL is http://172.190.121.178:8081/repository/zip-repo/notepadplusplus
   package:
-    defaultValue: ''
+    default: ''
     type: 'string'
     required: true
     description: | 
       package name, e.g. notepadplusplus
   version:
-    defaultValue: ''
+    default: ''
     type: 'string'
     required: true
     description: | 
       version number. e.g. 8.5.6
   destinationDirectory:
-    defaultValue: ''
+    default: ''
     type: 'string'
     required: true
     description: | 
       The directory that the package will be donwloaded
   fileExtension:
-    defaultValue: 'zip'
+    default: 'zip'
     type: 'string'
     required: false
     description: | 

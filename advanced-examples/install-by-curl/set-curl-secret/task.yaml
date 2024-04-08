@@ -3,7 +3,7 @@ name: set-curl-secret
 command: './main.ps1 -RepoSecretBase64 {{repoSecretBase64}}'
 parameters:
   repoSecretBase64:
-    defaultValue: ''
+    default: ''
     type: 'string'
     required: true
     description: | 

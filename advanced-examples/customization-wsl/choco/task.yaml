@@ -6,7 +6,7 @@ author: Microsoft Corporation
 command: "./Choco.ps1 -Package {{package}} -Version {{version}} -IgnoreChecksums {{ignoreChecksums}}"
 parameters:
   package:
-    defaultValue: ""
+    default: ""
     type: string
     required: true
     description: |
@@ -15,12 +15,12 @@ parameters:
       Visit https://chocolatey.org/packages to learn
       more about Chocolatey packages. 
   version:
-    defaultValue: ""
+    default: ""
     type: string
     required: false
     description: The version of the Chocolatey package to install.
   ignoreChecksums:
-    defaultValue: false
+    default: false
     type: boolean
     required: false
     description: Whether to ignore checksums when installing the package.
