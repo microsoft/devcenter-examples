@@ -1,0 +1,8 @@
+/* Visual Studio Settings File */
+{
+  "previewFeatures.shellExperimentalStyles": true,
+  "environment.visualExperience.colorTheme": "bubblegum",
+  "environment.tabs.documentTabs.layout": "left",
+  "textEditor.general.display.bracePairColorization": true,
+  "textEditor.general.stickyScroll.enable": true
+}

@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "components": [
+
+  ],
+  "extensions": [
+    "https://marketplace.visualstudio.com/items?itemName=GitHub.copilotvs",
+    "https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.ProductivityPowerPack2022",
+    "https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ColorPreview",
+    "https://marketplace.visualstudio.com/items?itemName=adrianwilczynski.one-dark-pro"
+  ]
+}

@@ -1,0 +1,149 @@
+properties:
+  configurationVersion: 0.2.0
+  ########################################
+  ### ASSERTIONS: System Requirements
+  ########################################
+  assertions:
+    ### Assertion: OS Version
+    ### -------------------------------------
+    - resource: Microsoft.Windows.Developer/OsVersion
+      id: OsVersion
+      directives:
+        description: Minimum OS version requirement
+        allowPrerelease: true
+      settings:
+        MinVersion: "10.0.22000"
+  ########################################
+  ### RESOURCES: System Configuration
+  ########################################
+  resources:
+   ########################################
+   ### Initialization
+   ########################################
+   ### Install Git
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: git
+     directives:
+       description: Install Git
+       allowPrerelease: true
+     settings:
+       id: Git.Git
+   ### Configure Install Ubuntu
+   ### -------------------------------------
+   - resource: PSDscResources/Script
+     id: ubuntuwsl
+     directives:
+       description: Install Ubuntu for WSL
+     settings:
+       SetScript: |
+         $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+         wsl --install -d Ubuntu
+       GetScript: return $false
+       TestScript: return $false
+   ### Disable UAC
+   ### -------------------------------------
+   - resource: PSDscResources/Script
+     id: disableuac
+     directives:
+       description: Disables UAC
+     settings:
+       SetScript: |
+         $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+         reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f
+       GetScript: return $false
+       TestScript: return $false       
+########################################
+   ### Install CLIs, SDKs & Tools
+   ########################################
+   ### Install Powershell
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: powershell
+     directives:
+       description: Install Powershell
+       allowPrerelease: true
+     settings:
+       id: Microsoft.PowerShell
+   ### Install Python
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: python
+     directives:
+       description: Install Python
+       allowPrerelease: true
+     settings:
+       id: Python.Python.3.11
+   ### Install NodeJS
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: nodejs
+     directives:
+       description: Install NodeJS
+       allowPrerelease: true
+     settings:
+       id: OpenJS.NodeJS
+   ### Install .NET 8
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: dotnet
+     directives:
+       description: Install .NET 8
+       allowPrerelease: true
+     settings:
+       id: Microsoft.DotNet.SDK.8
+   ### Install Bicep
+   ### -------------------------------------
+   - resource: PSDscResources/Script
+     id: bicep
+     directives:
+       description: Install Bicep for Azure CLI
+     settings:
+       SetScript: |
+         $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+         az config set bicep.use_binary_from_path=False --only-show-errors
+         az bicep install --only-show-errors
+       GetScript: return $false
+       TestScript: return $false
+   ### Install Azd
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: azd
+     directives:
+       description: Install Azd
+       allowPrerelease: true
+     settings:
+       id: Microsoft.Azd
+   ### Install Docker
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: docker
+     directives:
+       description: Install Docker
+       allowPrerelease: true
+     settings:
+       id: Docker.DockerDesktop
+       ensure: Present
+########################################
+   ### Install Visual Studio Code and Extensions
+   ### Install Visual Studio Code
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: vscode
+     directives:
+       description: Install Microsoft Visual Studio Code
+       allowPrerelease: true
+     settings:
+       id: Microsoft.VisualStudioCode
+       ensure: Present
+########################################
+   ### Install and Configure Visual Studio 2022
+   ### Install Visual Sudio
+   ### -------------------------------------
+   - resource: Microsoft.WinGet.DSC/WinGetPackage
+     id: vsenterprise
+     directives:
+      description: Install Visual Studio 2022 Enterprise
+      allowPrerelease: true
+     settings:
+       id: Microsoft.VisualStudio.2022.Enterprise.Preview
