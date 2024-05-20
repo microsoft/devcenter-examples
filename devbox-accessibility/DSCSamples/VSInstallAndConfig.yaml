@@ -1,0 +1,160 @@
+---
+properties:
+  configurationVersion: 0.2.0
+
+  resources:
+     ### Install VS 2022 preview
+    - resource: Microsoft.Winget.DSC/WingetPackage
+      directives:
+        description: Install Visual Studio Preview
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudio.2022.Professional.Preview
+
+     ### Stop Vs 2022 preview if it is running
+    - resource: PSDscResources/Script
+      id: RestartVS    
+      settings:
+        GetScript: |
+          @{
+           Result = ((Get-Process -Name 'devenv' -ErrorAction SilentlyContinue) -ne $null) -eq $true
+          }
+        TestScript: |
+          $false
+        SetScript: |
+          Start-Sleep -Seconds 15
+          if ((Get-Process -Name 'devenv' -ErrorAction SilentlyContinue) -ne $null) {
+            Write-Host "Visual Studio 2022 Professional Preview is running, Stopping it."
+            Stop-Process -Name 'devenv' -Force
+          }
+          Write-Host "Visual Studio 2022 Professional Preview is not running, Starting it"
+          $vsPath = "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\devenv.exe"
+          Start-Process $vsPath
+          Start-Sleep -Seconds 15
+          Write-Host "Visual Studio 2022 Professional Preview is running, Stopping it"
+          Stop-Process -Name 'devenv' -Force
+
+
+     ### Set RegEdit value to enable Vs 2022 preview
+     ### C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE>vsregedit set local HKCU FeatureFlags\VS\Core\NewSettingsExperience Value dword 1
+    - resource: PSDscResources/Script
+      directives:
+        description: Configure Visual Studio Registry
+        allowPrerelease: true
+      settings:
+        GetScript: |
+          # Check if the registry key exists and has the expected value
+          $key = "HKCU:\FeatureFlags\VS\Core\NewSettingsExperience"
+          $name = "Value"
+          $expectedValue = 1
+          if (Test-Path -Path $key) {
+            $currentValue = Get-ItemProperty -Path $key -Name $name -ErrorAction SilentlyContinue
+            if ($null -ne $currentValue -and $currentValue.$name -eq $expectedValue) {
+              return @{ Result = $true }
+            } else {
+              return @{ Result = $false }
+            }
+          } else {
+            return @{ Result = $false }
+          }
+        TestScript: |
+          # Test if the registry key exists and has the expected value
+          $key = "HKCU:\FeatureFlags\VS\Core\NewSettingsExperience"
+          $name = "Value"
+          $expectedValue = 1
+          if (Test-Path -Path $key) {
+            $currentValue = Get-ItemProperty -Path $key -Name $name -ErrorAction SilentlyContinue
+            if ($null -ne $currentValue -and $currentValue.$name -eq $expectedValue) {
+              return $true
+            } else {
+              return $false
+            }
+          } else {
+            return $false
+          }
+        SetScript: |
+          # Set the registry key using vsregedit
+          $vsregeditPath = "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\vsregedit.exe"
+          $arguments = 'set local HKCU FeatureFlags\VS\Core\NewSettingsExperience Value dword 1'
+          $process = Start-Process -FilePath $vsregeditPath -ArgumentList $arguments -Wait -PassThru -NoNewWindow
+          if ($process.ExitCode -eq 0) {
+            return @{ Result = $true }
+          } else {
+            return @{ Result = $false }
+          }
+
+     ### Stop Vs 2022 preview if it is running
+    - resource: PSDscResources/Script
+      id: RestartVSAgain    
+      settings:
+        GetScript: |
+          @{
+           Result = ((Get-Process -Name 'devenv' -ErrorAction SilentlyContinue) -ne $null) -eq $true
+          }
+        TestScript: |
+          $false
+        SetScript: |
+          Start-Sleep -Seconds 15
+          if ((Get-Process -Name 'devenv' -ErrorAction SilentlyContinue) -ne $null) {
+            Write-Host "Visual Studio 2022 Professional Preview is running, Stopping it."
+            Stop-Process -Name 'devenv' -Force
+          }
+          Write-Host "Visual Studio 2022 Professional Preview is not running, Starting it"
+          $vsPath = "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\devenv.exe"
+          Start-Process $vsPath
+          Start-Sleep -Seconds 15
+          Write-Host "Visual Studio 2022 Professional Preview is running, Stopping it"
+          Stop-Process -Name 'devenv' -Force
+
+
+     ### Copy settings file from remote And place at all AppData\Local\Microsoft\VisualStudio\17.* folders. It overrides the file if it exists
+    - resource: PSDscResources/Script
+      directives:
+        description: Copy Settings Json
+        allowPrerelease: true
+      settings:
+        GetScript: |
+          $destinationDir = "$env:LOCALAPPDATA\Microsoft\VisualStudio"
+          $dirs = Get-ChildItem -Path $destinationDir -Directory | Where-Object { $_.Name -like '17.*' }
+          $testResult = $false
+          foreach ($dir in $dirs) {
+            $destinationPath = Join-Path -Path $dir.FullName -ChildPath "settings.json"
+            if (Test-Path -Path $destinationPath) {
+              $testResult = $true
+              break
+            }
+          }
+          $testResult
+        TestScript: |
+          $false
+        SetScript: |
+          $url = "https://raw.githubusercontent.com/jiayac/SampleDSCFiles/main/visualstudio/settings.json"
+          $filename = Split-Path -Path $url -Leaf
+          $localPathForRemoteFile = "$env:USERPROFILE\Downloads\VSSettingsFileFromRemote\$filename"
+
+          $directory = Split-Path -Path $localPathForRemoteFile -Parent
+          if (-not (Test-Path -Path $directory)) {
+            New-Item -Path $directory -ItemType Directory -Force
+          }
+
+          # Download the file from the URL, overwriting if it exists
+          Invoke-WebRequest -Uri $url -OutFile $localPathForRemoteFile
+          Start-Sleep -Seconds 5
+
+          $sourcePath = $localPathForRemoteFile
+
+          $destinationDir = "$env:LOCALAPPDATA\Microsoft\VisualStudio"
+          $dirs = Get-ChildItem -Path $destinationDir -Directory | Where-Object { $_.Name -like '17.*' }
+
+          foreach ($dir in $dirs) {
+            $destinationPath = Join-Path -Path $dir.FullName -ChildPath "settings.json"
+
+            if (-not (Test-Path -Path $dir.FullName)) {
+              New-Item -ItemType Directory -Path $dir.FullName -Force
+            }
+
+            # Copy the file, overwriting if it exists
+            Copy-Item -Path $sourcePath -Destination $destinationPath -Force
+          }
+
+

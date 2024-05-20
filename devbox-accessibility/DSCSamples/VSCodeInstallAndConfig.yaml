@@ -1,0 +1,73 @@
+---
+properties:
+  configurationVersion: 0.2.0
+
+  resources:
+    - resource: Microsoft.Winget.DSC/WingetPackage
+      directives:
+        description: Install Visual Studio Code
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudioCode
+        
+    - resource: PSDscResources/Script
+      id: RestartVSCode    
+      settings:
+        GetScript: |
+          @{
+            Result = ((Get-Process -Name 'Code' -ErrorAction SilentlyContinue) -ne $null) -eq $true
+          }
+        TestScript: |
+          $false
+        SetScript: |
+          Start-Sleep -Seconds 5
+          if ((Get-Process -Name 'Code' -ErrorAction SilentlyContinue) -ne $null) {
+            Write-Host "VSCode is running, Stopping VSCode"
+            Stop-Process -Name 'Code' -Force
+          }
+          Write-Host "VSCode is not running, Starting VSCode"
+          $vsCodePath = Join-Path -Path $env:USERPROFILE -ChildPath 'AppData\Local\Programs\Microsoft VS Code\Code.exe'
+          Start-Process $vsCodePath
+          Start-Sleep -Seconds 5
+          Write-Host "VSCode is running, Stopping VSCode"
+          Stop-Process -Name 'Code' -Force
+
+    - resource: PSDscResources/Script
+      directives:
+        description: Copy Settings Json
+        allowPrerelease: true
+      settings:
+        GetScript: |
+          $destinationDir = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::ApplicationData)
+          $destinationPath = Join-Path -Path $destinationDir -ChildPath "Code\User\settings.json"
+          Test-Path -Path $destinationPath
+        TestScript: |
+          $destinationDir = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::ApplicationData)
+          $destinationPath = Join-Path -Path $destinationDir -ChildPath "Code\User\settings.json"
+          Test-Path -Path $destinationPath
+          $false
+        SetScript: |
+          $url = "https://raw.githubusercontent.com/jiayac/SampleDSCFiles/main/vscode/settings.json"
+          $filename = Split-Path -Path $url -Leaf
+          $localPathForRemoteFile = "$env:USERPROFILE\Downloads\VSCodeSettingsFileFromRemote\$filename"
+
+          $directory = Split-Path -Path $localPathForRemoteFile -Parent
+          if (-not (Test-Path -Path $directory)) {
+            New-Item -Path $directory -ItemType Directory -Force
+          }
+
+          # Copy the file from the URL, overwriting if it exists
+          Invoke-WebRequest -Uri $url -OutFile $localPathForRemoteFile
+          Start-Sleep -Seconds 5
+
+          $sourcePath = $localPathForRemoteFile
+
+          $destinationDir = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::ApplicationData)
+          $destinationPath = Join-Path -Path $destinationDir -ChildPath "Code\User\settings.json"
+
+          if (-not (Test-Path -Path $destinationDir)) {
+            New-Item -ItemType Directory -Path $destinationDir -Force
+          }
+
+          # Copy the file, overwriting if it exists
+          Copy-Item -Path $sourcePath -Destination $destinationPath -Force

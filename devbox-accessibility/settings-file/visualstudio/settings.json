@@ -1,0 +1,26 @@
+/* Visual Studio Settings File */
+{
+  "projectsAndSolutions.locations.projectTemplates": "C:\\Users\\jiayanchen\\Documents\\Visual Studio 2022\\Templates\\ProjectTemplates",
+  "projectsAndSolutions.locations.projectItemTemplates": "C:\\Users\\jiayanchen\\Documents\\Visual Studio 2022\\Templates\\ItemTemplates",
+  "environment.tabs.previewTab.singleClickPreviewInSolutionExplorer": false,
+  "environment.visualExperience.colorTheme": "blue",
+  "previewFeatures.vSCoreNewSettingsExperience": true,
+  "environment.terminal.profiles": [
+    {
+      "displayName": "Developer PowerShell",
+      "location": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "arguments": "-NoExit -Command \"& { Import-Module \"\"\"$env:VSAPPIDDIR\\..\\Tools\\Microsoft.VisualStudio.DevShell.dll\"\"\"; Enter-VsDevShell -SkipAutomaticLocation -SetDefaultWindowTitle -InstallPath $env:VSAPPIDDIR\\..\\..\\}\""
+    },
+    {
+      "displayName": "Developer Command Prompt",
+      "location": "C:\\Windows\\system32\\cmd.exe",
+      "arguments": "/k \"\"%VSAPPIDDIR%\\..\\Tools\\VsDevCmd.bat\""
+    }
+  ],
+  "textEditor.general.stickyScroll.maxLines": 100,
+  "textEditor.advanced.scrolling.charsPerHorizontalScroll": 1,
+  "projectsAndSolutions.general.showOutputWindow": true,
+  "textEditor.advanced.scrolling.linesPerVerticalScroll": 3,
+  "textEditor.general.audioCues": true,
+  "textEditor.general.display.autoBraceSurround": true
+}

@@ -1,0 +1,28 @@
+{
+    "editor.accessibilitySupport": "on",
+    "editor.inlineSuggest.enabled": true,
+    "editor.screenReaderAnnounceInlineSuggestion": true,
+    "editor.inlineCompletionsAccessibilityVerbose": true,
+    "accessibility.verbosity.inlineCompletions": false,
+    "settingsSync.ignoredExtensions": [
+        "ms-toolsai.datawrangler"
+    ],
+    "accessibility.signals.format": {
+        "sound": "never",
+        "announcement": "never"
+    },
+    "git.autofetch": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.startupEditor": "none",
+    "editor.hover.delay": 5000,
+    "editor.quickSuggestions": {
+        "other": "off"
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "accessibility.signals.chatRequestSent": {
+        "announcement": "off"
+    },
+    "accessibility.signals.save": {
+        "sound": "always"
+    }
+}
