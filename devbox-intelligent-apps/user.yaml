@@ -4,5 +4,5 @@ tasks:
   - name: winget
     description: 'User-based Customizations including: Visual Studio Code w/ AI Extensions'
     parameters:
-      configurationFile: 'c:\src\dev-box-customization-intelligent-apps\winget-configurations\user-personalizations.dsc.yaml'
+      configurationFile: 'c:\src\devcenter-examples\devbox-intelligent-apps\winget-configurations\user-personalizations.dsc.yaml'
       runAsUser: true
