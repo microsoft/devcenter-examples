@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  ########################################
+  ### RESOURCES: NVDA and RDAccess Add-On, JAWS 2023
+  ########################################
+  resources:
+        ### Install: Freedom Scientific JAWS 2023
+    ### -------------------------------------
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: JAWS
+      directives:
+        description: Freedom Scientific JAWS 2023
+        allowPrerelease: true
+      settings:
+        id: FreedomScientific.JAWS.2023
+        source: winget
+        ensure: Present
+
+
+  configurationVersion: 0.2.0
+### Run the following command to invoke this configuration:
+# Get-WinGetConfiguration -File "C:\Repo\azure-devcenter-customizations-tests\Microsoft.Windows.Setting.Accessibility\RDAccess-configuration.dsc.yaml" | Invoke-WinGetConfiguration -Verbose

@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  resources:
+    ### Change Windows Accessibility Settings
+    - resource: Microsoft.Windows.Setting.Accessibility/Text
+      directives:
+        description: Set Windows text size
+        allowPrerelease: true
+      settings:
+        Size: Large # 'Small', 'Medium', 'Large', 'ExtraLarge'
+
+  configurationVersion: 0.2.0

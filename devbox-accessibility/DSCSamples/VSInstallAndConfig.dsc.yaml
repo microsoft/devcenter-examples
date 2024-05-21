@@ -128,7 +128,7 @@ properties:
         TestScript: |
           $false
         SetScript: |
-          $url = "https://raw.githubusercontent.com/jiayac/SampleDSCFiles/main/visualstudio/settings.json"
+          $url = "https://raw.githubusercontent.com/microsoft/devcenter-examples/main/devbox-accessibility/settings-file/visualstudio/settings.json"
           $filename = Split-Path -Path $url -Leaf
           $localPathForRemoteFile = "$env:USERPROFILE\Downloads\VSSettingsFileFromRemote\$filename"
 

@@ -47,7 +47,7 @@ properties:
           Test-Path -Path $destinationPath
           $false
         SetScript: |
-          $url = "https://raw.githubusercontent.com/jiayac/SampleDSCFiles/main/vscode/settings.json"
+          $url = "https://raw.githubusercontent.com/microsoft/devcenter-examples/main/devbox-accessibility/settings-file/vscode/settings.json"
           $filename = Split-Path -Path $url -Leaf
           $localPathForRemoteFile = "$env:USERPROFILE\Downloads\VSCodeSettingsFileFromRemote\$filename"
 
