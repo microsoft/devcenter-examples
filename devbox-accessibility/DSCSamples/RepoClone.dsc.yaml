@@ -4,12 +4,12 @@ properties:
     ### Install: Git
     ### -------------------------------------
     - resource: Microsoft.WinGet.DSC/WinGetPackage
-    id: git
-    directives:
-      description: Install Git
-      allowPrerelease: true
-    settings:
-      id: Git.Git
+      id: git
+      directives:
+        description: Install Git
+        allowPrerelease: true
+      settings:
+        id: Git.Git
     ### Clone Screen Describer Repo
     ### -------------------------------------
     - resource: GitDsc/GitClone
