@@ -1,0 +1,33 @@
+$schema: "1.0"
+name: devbox-customization
+tasks:
+  - name: winget
+    parameters:
+      downloadUrl: 'https://raw.githubusercontent.com/microsoft/devcenter-examples/main/devbox-accessibility/DSCSamples/JAWSInstall.dsc.yaml'
+      configurationFile: 'C:\WinGetConfig\JAWSInstall.dsc.yaml'
+      runAsUser: true
+  - name: winget
+    parameters:
+      downloadUrl: 'https://raw.githubusercontent.com/microsoft/devcenter-examples/main/devbox-accessibility/DSCSamples/NVDAInstallAndConfig.dsc.yaml'
+      configurationFile: 'C:\WinGetConfig\NVDAInstallAndConfig.dsc.yaml'
+      runAsUser: true
+  - name: winget
+    parameters:
+      downloadUrl: 'https://raw.githubusercontent.com/microsoft/devcenter-examples/main/devbox-accessibility/DSCSamples/RepoClone.dsc.yaml'
+      configurationFile: 'C:\WinGetConfig\RepoClone.dsc.yaml'
+      runAsUser: true
+  - name: winget
+    parameters:
+      downloadUrl: 'https://raw.githubusercontent.com/microsoft/devcenter-examples/main/devbox-accessibility/DSCSamples/VSCodeInstallAndConfig.dsc.yaml'
+      configurationFile: 'C:\WinGetConfig\VSCodeInstallAndConfig.dsc.yaml'
+      runAsUser: true
+  - name: winget
+    parameters:
+      downloadUrl: 'https://raw.githubusercontent.com/microsoft/devcenter-examples/main/devbox-accessibility/DSCSamples/VSInstallAndConfig.dsc.yaml'
+      configurationFile: 'C:\WinGetConfig\VSInstallAndConfig.dsc.yaml'
+      runAsUser: true
+  - name: winget
+    parameters:
+      downloadUrl: 'https://raw.githubusercontent.com/microsoft/devcenter-examples/main/devbox-accessibility/DSCSamples/WindowsAccessibility.dsc.yaml'
+      configurationFile: 'C:\WinGetConfig\WindowsAccessibility.dsc.yaml'
+      runAsUser: true
