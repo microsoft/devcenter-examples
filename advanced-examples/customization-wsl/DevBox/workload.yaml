@@ -1,9 +1,9 @@
 $schema: "1.0"
 name: devbox-customization
 tasks:
-  - name: choco
+  - name: winget
     parameters:
-      package: python3
+      package: Python.Python.3.12
       version: 3.11.0
   - name: powershell
     parameters:
