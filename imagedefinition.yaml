@@ -1,0 +1,25 @@
+$schema: "1.0"
+name: dhruvdef-winget
+image: MicrosoftWindowsDesktop_windows-ent-cpc_win11-21h2-ent-cpc-m365
+tasks:
+    - name: winget
+      parameters:
+        package:  Microsoft.PowerToys
+    - name: winget
+      parameters:
+        package:  Microsoft.VisualStudioCode
+    - name: winget
+      parameters:
+        package:  Microsoft.AzureCLI
+    - name: winget
+      parameters:
+        package:  Microsoft.Azure.AZCopy.10
+    - name: winget
+      parameters:
+        package:  Microsoft.SQLServerManagementStudio
+    - name: winget
+      parameters:
+        package:  GitHub.GitHubDesktop
+    - name: winget
+      parameters:
+        package:  Microsoft.PowerToys

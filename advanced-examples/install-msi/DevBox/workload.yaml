@@ -1,6 +1,0 @@
-$schema: "1.0"
-name: devbox-customization
-tasks:
-  - name: install-msi
-    parameters:
-      sourceURL: 'C:\Temp\Everything-1.4.1.1024.x64.msi'  # ensure that you have downloaded the msi file to this location
