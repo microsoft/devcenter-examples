@@ -1,17 +1,19 @@
 $schema: "1.0"
 name: devbox-customization
+image: microsoftwindowsdesktop_windows-ent-cpc_win11-24H2-ent-cpc
+
 tasks:
-  - name: winget
+  - name: ~/winget
     parameters:
       package: Python.Python.3.12
       version: 3.11.0
-  - name: powershell
+  - name: ~/powershell
     parameters:
       command: |
         # Install robot framework
         python.exe -m pip install --upgrade pip;
         pip install robotframework
-  - name: powershell
+  - name: ~/powershell
     parameters:
       command: |
         # Install WSL2 distros
