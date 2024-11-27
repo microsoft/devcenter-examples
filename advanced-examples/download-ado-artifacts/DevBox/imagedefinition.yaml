@@ -1,5 +1,7 @@
 $schema: "1.0"
 name: devbox-customization
+image: microsoftwindowsdesktop_windows-ent-cpc_win11-24H2-ent-cpc
+
 tasks:
   - name: download-ado-universal-package
     parameters:
