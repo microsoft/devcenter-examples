@@ -2,7 +2,7 @@ $schema: "1.0"
 name: devbox-customization
 image: microsoftwindowsdesktop_windows-ent-cpc_win11-24H2-ent-cpc
 
-tasks:
+userTasks:
   - name: ~/powershell
     parameters:
       command: |
@@ -19,4 +19,3 @@ tasks:
 
         net localgroup docker-users "NT AUTHORITY\Authenticated Users" /ADD
 
-      runAsUser: true
