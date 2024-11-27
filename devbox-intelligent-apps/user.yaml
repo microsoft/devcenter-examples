@@ -1,6 +1,6 @@
 $schema: "1.0"
 name: "devbox-customization"
-tasks:
+userTasks:
   - name: winget
     description: 'User-based Customizations including: Visual Studio Code w/ AI Extensions'
     parameters:
